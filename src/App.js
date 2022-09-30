@@ -1,34 +1,17 @@
 "use strict";
 
-import React from "react";
-import Actions from "./components/actions";
-import Favoritos from "./components/favoritos";
-import Repositorios from "./components/repositorios";
-import Search from "./components/search";
-import UserInfo from "./components/user-info";
+import React, { Component } from "react";
+import AppContent from "./components/app-content";
 
-const App = () => (
-  <div className="app">
-    <Search />
-    <UserInfo />
-    <Actions />
-    <Repositorios
-      repos={[
-        {
-          name: "Nome do repositório",
-          link: "#",
-        },
-      ]}
-    />
-    <Favoritos
-      repos={[
-        {
-          name: "Nome do repositório",
-          link: "#",
-        },
-      ]}
-    />
-  </div>
-);
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return <AppContent />;
+  }
+}
 
 export default App;
