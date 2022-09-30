@@ -1,14 +1,14 @@
 "use strict";
 
-import React from "react";
+import React, { PropTypes } from "react";
 
-const Repositorios = ({ repos }) => (
+const Repositorios = ({ repositorios }) => (
   <div className="repos">
     <h2>Repositórios:</h2>
     <ul>
-      {repos.map((repo, index) => (
+      {repositorios.map((repos, index) => (
         <li key={index}>
-          <a href={repo.link}>{repo.name}</a>
+          <a href={repos.link}>{repos.name}</a>
         </li>
       ))}
     </ul>
@@ -20,9 +20,9 @@ Repositorios.dafaultProps = {
 };
 
 Repositorios.propTypes = {
-  className: React.PropTypes.string,
-  title: React.PropTypes.string.isRequired,
-  repos: React.PropTypes.array,
+  className: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  repos: PropTypes.array,
 };
 
 export default Repositorios;

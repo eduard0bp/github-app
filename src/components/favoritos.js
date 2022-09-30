@@ -1,14 +1,14 @@
 "use strict";
 
-import React from "react";
+import React, { PropTypes } from "react";
 
-const Favoritos = ({ repos }) => (
+const Favoritos = ({ favoritos }) => (
   <div className="starred">
     <h2>Favoritos:</h2>
     <ul>
-      {repos.map((repo, index) => (
+      {favoritos.map((fav, index) => (
         <li key={index}>
-          <a href={repo.link}>{repo.name}</a>
+          <a href={fav.link}>{fav.name}</a>
         </li>
       ))}
     </ul>
@@ -20,9 +20,9 @@ Favoritos.dafaultProps = {
 };
 
 Favoritos.propTypes = {
-  className: React.PropTypes.string,
-  title: React.PropTypes.string.isRequired,
-  repos: React.PropTypes.array,
+  className: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  favoritos: PropTypes.array,
 };
 
 export default Favoritos;

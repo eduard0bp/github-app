@@ -1,36 +1,29 @@
 "use strict";
 
-import React from "react";
+import React, { PropTypes } from "react";
 import Favoritos from "./favoritos";
 import Repositorios from "./repositorios";
 import Search from "./search";
 import UserInfo from "./user-info";
 import Actions from "./actions";
 
-const AppContent = () => (
+const AppContent = ({ userinfo, repositorios, favoritos }) => (
   <div className="app">
     <Search />
-    <UserInfo />
-    <Actions />
 
-    <Repositorios
-      repos={[
-        {
-          name: "Nome do repositório",
-          link: "#",
-        },
-      ]}
-    />
+    {!!userinfo && <UserInfo userinfo={userinfo} />}
+    {!!userinfo && <Actions />}
 
-    <Favoritos
-      repos={[
-        {
-          name: "Nome do repositório",
-          link: "#",
-        },
-      ]}
-    />
+    {!!repositorios.length && <Repositorios repositorios={repositorios} />}
+
+    {!!favoritos.length && <Favoritos favoritos={favoritos} />}
   </div>
 );
+
+AppContent.propTypes = {
+  userinfo: PropTypes.object,
+  repositorios: PropTypes.array.isRequired,
+  favoritos: PropTypes.array.isRequired,
+};
 
 export default AppContent;
