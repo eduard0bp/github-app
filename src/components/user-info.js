@@ -25,7 +25,7 @@ UserInfo.propTypes = {
     repos: PropTypes.number.isRequired,
     followers: PropTypes.number.isRequired,
     following: PropTypes.number.isRequired,
-  })
-}
+  }),
+};
 
 export default UserInfo;

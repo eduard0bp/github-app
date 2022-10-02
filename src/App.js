@@ -9,8 +9,8 @@ class App extends Component {
     super();
     this.state = {
       userinfo: null,
-      repositorios: [],
-      favoritos: [],
+      repos: [],
+      starred: [],
     };
   }
 
@@ -30,21 +30,39 @@ class App extends Component {
               login: result.login,
               repos: result.public_repos,
               followers: result.followers,
-              following: result.following
-            }
-          })
+              following: result.following,
+            },
+            repos: [],
+            starred: [],
+          });
         });
     }
-    console.log("change", e.target.value);
+  }
+
+  getRepos(type) {
+    return (e) => {
+      ajax()
+        .get(`https://api.github.com/users/eduard0bp/${type}`)
+        .then((result) => {
+          this.setState({
+            [type]: result.map((repo) => ({
+                name: repo.name,
+                link: repo.html_url,
+            })),
+          });
+        });
+    };
   }
 
   render() {
     return (
       <AppContent
         userinfo={this.state.userinfo}
-        repositorios={this.state.repositorios}
-        favoritos={this.state.favoritos}
+        repos={this.state.repos}
+        starred={this.state.starred}
         handleSearch={(e) => this.handleSearch(e)}
+        getRepos={this.getRepos("repos")}
+        getStarred={this.getRepos("starred")}
       />
     );
   }
