@@ -7,9 +7,9 @@ import Search from "./search";
 import UserInfo from "./user-info";
 import Actions from "./actions";
 
-const AppContent = ({ userinfo, repositorios, favoritos }) => (
+const AppContent = ({ userinfo, repositorios, favoritos, handleSearch }) => (
   <div className="app">
-    <Search />
+    <Search handleSearch={handleSearch} />
 
     {!!userinfo && <UserInfo userinfo={userinfo} />}
     {!!userinfo && <Actions />}
