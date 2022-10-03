@@ -1,34 +1,37 @@
-"use strict";
+'use strict'
 
-import React, { Component } from "react";
-import AppContent from "./components/app-content";
-import ajax from "@fdaciuk/ajax";
+import React, { Component } from 'react'
+import AppContent from './components/app-content'
+import ajax from '@fdaciuk/ajax'
 
 class App extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       userinfo: null,
       repos: [],
       starred: [],
-    };
+      isFetching: false
+    }
   }
 
   getGitHubApiUrl(username, type) {
-    const internalUser = username ? `/${username}` : "";
-    const internalType = type ? `/${type}` : "";
-    return `https://api.github.com/users${internalUser}${internalType}`;
+    const internalUser = username ? `/${username}` : ''
+    const internalType = type ? `/${type}` : ''
+    return `https://api.github.com/users${internalUser}${internalType}`
   }
 
   handleSearch(e) {
-    const value = e.target.value;
-    const keyCode = e.which || e.keyCode;
-    const ENTER = 13;
+    const value = e.target.value
+    const keyCode = e.which || e.keyCode
+    const ENTER = 13
 
     if (keyCode === ENTER) {
+      this.setState({ isFetching: true })
+
       ajax()
         .get(this.getGitHubApiUrl(value))
-        .then((result) => {
+        .then(result => {
           this.setState({
             userinfo: {
               username: result.name,
@@ -36,29 +39,30 @@ class App extends Component {
               login: result.login,
               repos: result.public_repos,
               followers: result.followers,
-              following: result.following,
+              following: result.following
             },
             repos: [],
-            starred: [],
-          });
-        });
+            starred: []
+          })
+        })
+        .always(() => this.setState({ isFetching: false }))
     }
   }
 
   getRepos(type) {
-    return (e) => {
-      const username = this.state.userinfo.login;
+    return () => {
+      const username = this.state.userinfo.login
       ajax()
         .get(this.getGitHubApiUrl(username, type))
-        .then((result) => {
+        .then(result => {
           this.setState({
-            [type]: result.map((repo) => ({
+            [type]: result.map(repo => ({
               name: repo.name,
-              link: repo.html_url,
-            })),
-          });
-        });
-    };
+              link: repo.html_url
+            }))
+          })
+        })
+    }
   }
 
   render() {
@@ -67,12 +71,13 @@ class App extends Component {
         userinfo={this.state.userinfo}
         repos={this.state.repos}
         starred={this.state.starred}
-        handleSearch={(e) => this.handleSearch(e)}
-        getRepos={this.getRepos("repos")}
-        getStarred={this.getRepos("starred")}
+        isFetching={this.state.isFetching}
+        handleSearch={e => this.handleSearch(e)}
+        getRepos={this.getRepos('repos')}
+        getStarred={this.getRepos('starred')}
       />
-    );
+    )
   }
 }
 
-export default App;
+export default App

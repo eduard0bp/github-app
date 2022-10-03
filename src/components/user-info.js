@@ -1,6 +1,6 @@
-"use strict";
+'use strict'
 
-import React, { PropTypes } from "react";
+import React, { PropTypes } from 'react'
 
 const UserInfo = ({ userinfo }) => (
   <div className="user-info">
@@ -15,7 +15,7 @@ const UserInfo = ({ userinfo }) => (
       <li>- Seguindo: {userinfo.following}</li>
     </ul>
   </div>
-);
+)
 
 UserInfo.propTypes = {
   userinfo: PropTypes.shape({
@@ -24,8 +24,8 @@ UserInfo.propTypes = {
     login: PropTypes.string.isRequired,
     repos: PropTypes.number.isRequired,
     followers: PropTypes.number.isRequired,
-    following: PropTypes.number.isRequired,
-  }),
-};
+    following: PropTypes.number.isRequired
+  })
+}
 
-export default UserInfo;
+export default UserInfo
